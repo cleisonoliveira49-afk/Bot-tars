@@ -1,11 +1,11 @@
-import telebot
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-BOT_TOKEN = 8254941787:AAFvYg8HK69leAkv5RmR_WockW2H1Ee8mWw
+BOT_TOKEN = "8254941787:AAFvYg8HK69leAkv5RmR_WockW2H1Ee8mWw"
 
-bot = telebot.TeleBot(BOT_TOKEN)
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Bot está vivo, meu chapa!")
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, "Bot tá on! Vamos que vamos!")
-
-bot.polling()
+app = ApplicationBuilder().token(BOT_TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.run_polling()
